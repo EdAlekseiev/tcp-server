@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"flag"
+	"fmt"
 	"os"
 	"os/signal"
 	"sync"
@@ -10,9 +12,17 @@ import (
 	"github.com/EdAlekseiev/tcp-server/internal/transport/tcp"
 )
 
+var port *int
+
+func init() {
+	port = flag.Int("port", 8085, "port number")
+}
+
 func main() {
+	flag.Parse()
+
 	ctx, cancel := context.WithCancel(context.Background())
-	server := tcp.NewTcpTransport(ctx, "localhost:8085")
+	server := tcp.NewTcpTransport(ctx, fmt.Sprintf(":%d", *port))
 
 	signalChan := make(chan os.Signal, 1)
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
