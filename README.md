@@ -29,3 +29,9 @@ You can use a TCP client to connect to the server. Here's an example using telne
 ```sh
 telnet  localhost  8085
 ```
+
+## Configuration
+The server has the following configuration options:
+
+- -port: The port on which the server listens for connections (default is 8085).
+
